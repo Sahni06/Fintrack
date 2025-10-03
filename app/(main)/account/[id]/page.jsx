@@ -3,10 +3,13 @@ import { notFound } from "next/navigation";
 import React, { Suspense } from "react";
 import TransactionTable from "../_components/transaction-table";
 import { BarLoader } from "react-spinners";
+import AccountChart from "../_components/account-chart";
+import { id } from "date-fns/locale";
 
 
 const Accountspage = async ({ params }) => {
-  const accountData = await getAccountWithTransaction(params.id);
+  const {id}= await params;
+  const accountData = await getAccountWithTransaction(id);
   if (!accountData) {
     notFound();
   }
@@ -39,7 +42,7 @@ const Accountspage = async ({ params }) => {
       <Suspense
         fallback={<BarLoader className="mt-4" width={"100%"} color="#9333ea" />}
       >
-        {/* <AccountChart transactions={transactions} /> */}
+        <AccountChart transactions={transactions} />
       </Suspense>
 
       {/* Transactions Table */}

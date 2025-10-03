@@ -13,6 +13,7 @@ const serializeTransaction = (obj) => {
   }
   return serialized;
 };
+
  export async function createAccount(data){
 try{
     const{userId} = await auth();
@@ -59,6 +60,19 @@ return { success: true, data: serializedAccount};
     throw new Error(error.message)
 }
  }
+
+export async function getDashboardData() {
+  const { userId } = await auth();
+  if (!userId) throw new Error("Unauthorized");
+
+  const user = await db.user.findUnique({
+    where: {  clerkuserid: userId },
+  });
+
+  if (!user) {
+    throw new Error("User not found");
+  }
+}
 
  export async function getUserAccounts(){
   
