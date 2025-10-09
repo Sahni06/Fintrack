@@ -1,3 +1,7 @@
+if (typeof WritableStream === "undefined") {
+  global.WritableStream = require("stream/web").WritableStream;
+}
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images:{
@@ -7,6 +11,11 @@ const nextConfig = {
                 hostname: "randomuser.me",
             },
         ]
+    },
+    experimental:{
+        serverActions:{
+            bodySizeLimit: "5mb",
+        }
     }
 };
 

@@ -61,20 +61,20 @@ export async function getAccountWithTransaction(accountId) {
       id: accountId, userId: user.id
     },
     include: {
-      transactions: {
+      transaction: {
         orderBy: {
           date: "desc"
         },
       },
       _count: {
-        select: { transactions: true },
+        select: { transaction: true },
       }
     }
   });
 
   return {
     ...serializeTransaction(account),
-    transactions: account.transactions.map(serializeTransaction)
+    transactions: account.transaction.map(serializeTransaction)
   }
 }
 

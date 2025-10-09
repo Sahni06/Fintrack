@@ -7,7 +7,7 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-  directUrl      = env("DIRECT_URL")
+  directUrl    = env("DIRECT_URL")
 }
 
 model User {
@@ -33,7 +33,7 @@ model Account{
    isDefault   Boolean 
    userId      String 
    user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-   transactions Transaction[]
+   transaction Transaction[]
    createdAt    DateTime  @default(now())
    updatedAt   DateTime  @updatedAt
 

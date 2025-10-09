@@ -2,7 +2,7 @@
 import { db } from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
-import { gte, lte, success } from "zod";
+
 
 export async function getCurrentBudget (accountId) {
  try {
@@ -13,15 +13,17 @@ export async function getCurrentBudget (accountId) {
     const user = await db.user.findUnique({
       where: { clerkuserid: userId },
     })
+
     if (!user) {
       throw new Error("User not found");
     }
 
     const budget = await db.budget.findFirst({
       where:{
-        userId: userId,
+        userId: user.id,
       }
     })
+
     const currentDate = new Date();
     const startOfMonth = new Date(
       currentDate.getFullYear(),
@@ -48,12 +50,13 @@ export async function getCurrentBudget (accountId) {
         amount: true,
        },
     });
+
     return{
-      budget: budget?{ ...budget, amount: budget.amount.toNumber()}: null,
-   currentExpenses: expenses._sum.amount
-   ?expenses._sum.amount.toNumber() 
+      budget: budget? { ...budget, amount: budget.amount.toNumber()}: null,
+   currentExpenses: expenses._sum.amount ? 
+   expenses._sum.amount.toNumber()
   : 0,
-  }
+  };
    }
 
   catch (error) {
@@ -68,12 +71,12 @@ export async function updateBudget(amount) {
     if (!userId) throw new Error("Unauthorized");
 
     const user = await db.user.findUnique({
-      where: { clerkuserid: userId },
+      where: { clerkuserid: userId},
     })
-    if (!user) {
-      throw new Error("User not found");
-    }
 
+    if (!user)  throw new Error("User not found");
+
+    // Update or create budget
     const budget = await db.budget.upsert({
       where:{
         userId: user.id,
@@ -86,8 +89,9 @@ create:{
   amount,
 },
   });
-   revalidatePath("./dashboard");
-   return{
+
+   revalidatePath("/dashboard");
+   return{     
     success: true,
     data:{
       ...budget, amount: budget.amount.toNumber()
