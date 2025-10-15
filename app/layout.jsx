@@ -15,7 +15,8 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body
         className={inter.className} >
-     <ClerkProvider>
+     <ClerkProvider
+      publishableKey = {process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
     {/* header */}
         <Header/>
         <main className="min-h-screen">
@@ -26,7 +27,7 @@ export default function RootLayout({ children }) {
        < footer className="bg-blue-50 py-12">
        <div className="container mx-auto px-4 text-center text-gray-600">
         <p>
-Made with 💗 by Sahni
+Made by Sahni
         </p>
         </div>
         </footer>
