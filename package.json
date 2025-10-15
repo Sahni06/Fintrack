@@ -13,7 +13,7 @@
   "dependencies": {
     "@arcjet/inspect": "^1.0.0-beta.13",
     "@arcjet/next": "^1.0.0-alpha.34",
-    "@clerk/nextjs": "^6.6.0",
+    "@clerk/nextjs": "^6.33.4",
     "@google/generative-ai": "^0.21.0",
     "@hookform/resolvers": "^3.9.1",
     "@prisma/client": "^6.0.1",
