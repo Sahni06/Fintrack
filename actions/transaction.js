@@ -66,7 +66,7 @@ export async function createTransaction(data) {
 
     //Calculate new balance
     const balanceChange = data.type === "EXPENSE" ? -data.amount : data.amount;
-    const newBalance = parseFloat(account.balance) + balanceChange;
+    const newBalance = account.balance.parseFloat() + balanceChange;
 
     //create transaction and update account balance
     const transaction = await db.$transaction(async (tx) => {
@@ -88,7 +88,8 @@ export async function createTransaction(data) {
       return newTransaction;
     })
     revalidatePath("/dashboard");
-    revalidatePath(`/account/${transaction.accountId}`)
+    revalidatePath(`/account/ ${transaction.accountId}`)
+
     return { success: true, data: serializeAmount(transaction) };
   } catch (error) {
     throw new Error(error.message);
