@@ -101,4 +101,4 @@ If you have a suggestion that would make this better, please fork the repo and c
 
 <li>Open a Pull Request</li>
 </ol>
-Project Link:https://fintrack-dusky.vercel.app/
+Project Link: https://fintrack-dusky.vercel.app/
