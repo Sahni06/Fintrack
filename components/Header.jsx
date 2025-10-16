@@ -13,6 +13,7 @@ import { LayoutDashboard, PenBox } from "lucide-react";
 import { checkUser } from "@/lib/checkUser";
 
 const Header = async () => {
+  
   await checkUser();
 
   return (

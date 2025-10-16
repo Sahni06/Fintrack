@@ -1,8 +1,9 @@
+import withBundleAnalyzer from '@next/bundle-analyzer'
+
 if (typeof WritableStream === "undefined") {
   global.WritableStream = require("stream/web").WritableStream;
 }
 
-/** @type {import('next').NextConfig} */
 const nextConfig = {
     images:{
         remotePatterns:[
@@ -19,4 +20,9 @@ const nextConfig = {
     }
 };
 
-export default nextConfig;
+// Initialize the bundle analyzer with its options
+const bundleAnalyzer = withBundleAnalyzer({
+  enabled: process.env.ANALYZE === 'true',
+});
+
+export default bundleAnalyzer ( nextConfig);
